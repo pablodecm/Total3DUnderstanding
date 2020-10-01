@@ -1,0 +1,5 @@
+# Ignore everything
+**
+
+# except conda environment file
+!environment.yml

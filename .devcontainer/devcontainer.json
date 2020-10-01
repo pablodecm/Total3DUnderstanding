@@ -1,0 +1,33 @@
+{
+    "name": "Total3DUnderstanding",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "extensions": [],
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined",
+        "-v",
+        "${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh",
+        "-v",
+        "/tmp/.X11-unix:/tmp/.X11-unix",
+        "-e",
+        "DISPLAY=${env:DISPLAY}",
+        "--gpus",
+        "all",
+        "--privileged"
+    ],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "workspaceMount": "src=${localWorkspaceFolder},dst=/root/Total3DUnderstanding,type=bind,consistency=cached",
+    "workspaceFolder": "/root/Total3DUnderstanding",
+    // this is executed in the local machine before the containers is created
+    // the xhost command allows for local users to connect to the X server
+    "initializeCommand": [
+        "xhost",
+        "+local:"
+    ]
+}
